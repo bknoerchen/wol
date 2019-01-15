@@ -3,11 +3,13 @@
   <client>
     <name>Client 1</name>
     <macaddress>E1:D3:4A:E4:0F:7D</macaddress>
+    <ip>192.168.0.86</ip>
     <port>9</port>
   </client>
   <client>
     <name>Client 2</name>
     <macaddress>01:1F:62:30:AC:C8</macaddress>
+    <ip>192.168.0.21</ip>
     <port>9</port>
   </client>
 </clients>
