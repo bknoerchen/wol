@@ -6,6 +6,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <title>WOL</title>
   </head>
+  <?php
+    if (file_exists('clients.xml')) {
+      $clients = simplexml_load_file("clients.xml") or die("Error: Cannot create object");
+    }
+    else {
+      exit("Could not open clients.xml");
+    }
+  ?>
   <script type="text/javascript">
     var MethodEnum = {
       WOL:  1,
@@ -49,11 +57,8 @@
 
     setInterval(function() {
       <?php
-        if (file_exists('clients.xml')) {
-          $clients = simplexml_load_file("clients.xml") or die("Error: Cannot create object");
-          foreach ($clients as $client) {
-            echo "pingHost(\"$client->ip\");";
-          }
+        foreach ($clients as $client) {
+          echo "pingHost(\"$client->ip\");";
         }
       ?>
     }, 10000);
@@ -62,15 +67,9 @@
   <body style="padding: 5px;">
     <div style="text-align: center; font-size: 35px; padding: 5px">WOL</div>
     <?php
-      if (file_exists('clients.xml')) {
-        $clients = simplexml_load_file("clients.xml") or die("Error: Cannot create object");
-        foreach ($clients as $client) {
-          // echo "<button type='button' class='btn btn-primary btn-block' onclick='pingHost(\"$client->ip\")'>ping $client->name</button>";
-          echo "<button type='button' ip='$client->ip' class='btn btn-primary btn-block' onclick='wakeOnLan(\"$client->macaddress\",$client->port)'>$client->name</button>";
-        }
-      }
-      else {
-        exit("Could not open clients.xml");
+      foreach ($clients as $client) {
+        // echo "<button type='button' class='btn btn-primary btn-block' onclick='pingHost(\"$client->ip\")'>ping $client->name</button>";
+        echo "<button type='button' ip='$client->ip' class='btn btn-primary btn-block' onclick='wakeOnLan(\"$client->macaddress\",$client->port)'>$client->name</button>";
       }
     ?>
     <div id="retValDiv">
