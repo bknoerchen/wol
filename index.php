@@ -1,5 +1,32 @@
 <!DOCTYPE html>
 <html lang="de">
+  <style>
+    .flex-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .flex-container > div {
+      margin: 5px;
+    }
+
+    .led-green {
+      width: 16px;
+      height: 16px;
+      background-color: #ABFF00;
+      border-radius: 50%;
+      box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 4px 1px, inset #304701 0 -1px 5px, #89FF00 0 1px 8px;
+    }
+
+    .led-gray {
+      width: 16px;
+      height: 16px;
+      background-color: #A9A9A9;
+      border-radius: 50%;
+      box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 4px 1px, inset #676767 0 -1px 5px, #D7D7D7 0 1px 8px;
+    }
+  </style>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,7 +58,9 @@
                 document.getElementById("retValDiv").innerHTML = xmlHttp.responseText;
                 break;
               case MethodEnum.PING:
-		document.querySelector("[ip='" + host + "']").disabled = xmlHttp.responseText == host;
+                var running = xmlHttp.responseText == host;
+		document.querySelector("[ip='" + host + "']").disabled = running;
+                document.querySelector("[ip='" + host + "']").querySelector("#led").className = (running ? "led-green" : "led-gray");
                 if (xmlHttp.responseText == host) {
                   document.getElementById("retValDiv").innerHTML = host + " is running";
                 }
@@ -69,7 +98,8 @@
     <?php
       foreach ($clients as $client) {
         // echo "<button type='button' class='btn btn-primary btn-block' onclick='pingHost(\"$client->ip\")'>ping $client->name</button>";
-        echo "<button type='button' ip='$client->ip' class='btn btn-primary btn-block' onclick='wakeOnLan(\"$client->macaddress\",$client->port)'>$client->name</button>";
+        echo "<button type='button' ip='$client->ip' class='btn btn-primary btn-block' onclick='wakeOnLan(\"$client->macaddress\",$client->port)'>
+              <div class='flex-container'><div>$client->name ($client->ip)</div><div id='led' class='led-gray'</div></div></button>";
       }
     ?>
     <div id="retValDiv">
