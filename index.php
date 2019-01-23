@@ -40,6 +40,12 @@
     else {
       exit("Could not open clients.xml");
     }
+
+    function pingAll($clients) {
+      foreach ($clients as $client) {
+        echo "pingHost(\"$client->ip\");";
+      }
+    }
   ?>
   <script type="text/javascript">
     var MethodEnum = {
@@ -86,12 +92,13 @@
 
     setInterval(function() {
       <?php
-        foreach ($clients as $client) {
-          echo "pingHost(\"$client->ip\");";
-        }
+        pingAll($clients);
       ?>
     }, 10000);
 
+    <?php
+      pingAll($clients);
+    ?>
   </script>
   <body style="padding: 5px;">
     <div style="text-align: center; font-size: 35px; padding: 5px">WOL</div>
