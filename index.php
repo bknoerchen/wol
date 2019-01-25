@@ -43,7 +43,7 @@
 
     function pingAll($clients) {
       foreach ($clients as $client) {
-        echo "pingHost(\"$client->ip\");";
+        echo "pingHost(\"$client->ip\");\n";
       }
     }
   ?>
@@ -60,13 +60,14 @@
         if (xmlHttp.readyState == XMLHttpRequest.DONE) {
           if (xmlHttp.status == 200) {
             switch(method) {
-	    case MethodEnum.WOL:
+              case MethodEnum.WOL:
                 document.getElementById("retValDiv").innerHTML = xmlHttp.responseText;
                 break;
               case MethodEnum.PING:
                 var running = xmlHttp.responseText == host;
-		document.querySelector("[ip='" + host + "']").disabled = running;
-                document.querySelector("[ip='" + host + "']").querySelector("#led").className = (running ? "led-green" : "led-gray");
+                var button = document.querySelector("[data-ip='" + host + "']");
+                button.disabled = running;
+                button.querySelector(".led").className = (running ? "led-green led" : "led-gray led");
                 if (xmlHttp.responseText == host) {
                   document.getElementById("retValDiv").innerHTML = host + " is running";
                 }
@@ -101,12 +102,12 @@
     ?>
   </script>
   <body style="padding: 5px;">
-    <div style="text-align: center; font-size: 35px; padding: 5px">WOL</div>
+    <div style="text-align: center; font-size: 35px; padding: 5px">BASTI-WOL</div>
     <?php
       foreach ($clients as $client) {
         // echo "<button type='button' class='btn btn-primary btn-block' onclick='pingHost(\"$client->ip\")'>ping $client->name</button>";
-        echo "<button type='button' ip='$client->ip' class='btn btn-primary btn-block' onclick='wakeOnLan(\"$client->macaddress\",$client->port)'>
-              <div class='flex-container'><div>$client->name ($client->ip)</div><div id='led' class='led-gray'</div></div></button>";
+        echo "<button type='button' data-ip='$client->ip' class='btn btn-primary btn-block' onclick='wakeOnLan(\"$client->macaddress\",$client->port)'>
+              <div class='flex-container'><div>$client->name ($client->ip)</div><div class='led-gray led'</div></div></button>\n";
       }
     ?>
     <div id="retValDiv">
