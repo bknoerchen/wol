@@ -84,11 +84,11 @@
     }
 
     function wakeOnLan(macAddress, port) {
-      XMLHttpGet("wol.php?" + "macaddress=" + macAddress + "&port=" + port, MethodEnum.WOL)
+      XMLHttpGet("php-scripts/wol.php?" + "macaddress=" + macAddress + "&port=" + port, MethodEnum.WOL)
     }
 
     function pingHost(host) {
-      XMLHttpGet("ping.php?" + "host=" + host, MethodEnum.PING, host)
+      XMLHttpGet("php-scripts/ping.php?" + "host=" + host, MethodEnum.PING, host)
     }
 
     setInterval(function() {

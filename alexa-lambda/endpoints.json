@@ -1,0 +1,64 @@
+{
+  "endpoints": [{
+      "endpointId": "device 1",
+      "manufacturerName": "WOL",
+      "friendlyName": "Device 1",
+      "description": "Smart Wake on LAN Switch for Moe",
+      "displayCategories": [
+        "SWITCH"
+      ],
+      "cookie": {
+        "key1": "https://.../php-scripts/wol.php?macaddress=00:16:3A:80:AA:C7&port=9",
+        "key2": "https://.../php-scripts/ping.php?host=192.168.0.86"
+      },
+      "capabilities": [{
+          "type": "AlexaInterface",
+          "interface": "Alexa",
+          "version": "3"
+        },
+        {
+          "interface": "Alexa.PowerController",
+          "version": "3",
+          "type": "AlexaInterface",
+          "properties": {
+            "supported": [{
+              "name": "powerState"
+            }],
+            "retrievable": true
+          }
+        }
+      ]
+    },
+    {
+      "endpointId": "device 2",
+      "manufacturerName": "WOL",
+      "friendlyName": "Device 2",
+      "description": "Smart Wake on LAN Switch for Homer",
+      "displayCategories": [
+        "SWITCH"
+      ],
+      "cookie": {
+        "key1": "https://.../php-scripts/wol.php?macaddress=E0:D5:AE:E4:7D:6D&port=9",
+        "key2": "https://.../php-scripts/ping.php?host=192.168.0.104"
+      },
+      "capabilities": [{
+          "type": "AlexaInterface",
+          "interface": "Alexa",
+          "version": "3"
+        },
+        {
+          "interface": "Alexa.PowerController",
+          "version": "3",
+          "type": "AlexaInterface",
+          "properties": {
+            "supported": [{
+              "name": "powerState"
+            }],
+            "retrievable": true
+          }
+        }
+      ]
+    }
+  ]
+}
+
